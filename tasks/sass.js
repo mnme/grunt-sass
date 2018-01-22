@@ -5,6 +5,12 @@ var sass = require('node-sass');
 module.exports = function (grunt) {
 	var options;
 
+	/**
+	 * A Promise wrapper around the render function of node-sass.
+	 *
+	 * @param {Object} options Options passed to node-sass
+	 * @return {Object} A Promise
+	 */
 	const sassCompile = function (options) {
 		return new Promise(function (resolve, reject) {
 			sass.render(options, function (error, result) {
@@ -17,6 +23,11 @@ module.exports = function (grunt) {
 		});
 	};
 
+	/**
+	 * @param {string} to Output CSS path
+	 * @param {Object} options Options passed to node-sass
+	 * @return {Object} A Promise
+	 */
 	const sassWrite = function (to, options) {
 		return sassCompile(options)
 			.then(function (result) {
