@@ -1,7 +1,6 @@
 'use strict';
 var path = require('path');
 var eachAsync = require('each-async');
-var assign = require('object-assign');
 var sass = require('node-sass');
 
 module.exports = function (grunt) {
@@ -34,7 +33,7 @@ module.exports = function (grunt) {
 			}
 
 			src.map(function (srcpath) {
-				return sass.render(assign({}, options, {
+				return sass.render(Object.assign({}, options, {
 					file: srcpath,
 					outFile: f.dest
 				}), function (err, res) {
