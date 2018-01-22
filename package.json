@@ -30,7 +30,6 @@
     "libsass"
   ],
   "dependencies": {
-    "each-async": "^1.0.0",
     "node-sass": "^4.0.0"
   },
   "devDependencies": {
