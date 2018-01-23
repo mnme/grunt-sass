@@ -3,8 +3,6 @@ var path = require('path');
 var sass = require('node-sass');
 
 module.exports = function (grunt) {
-	var options;
-
 	/**
 	 * A Promise wrapper around the render function of node-sass.
 	 *
@@ -44,7 +42,7 @@ module.exports = function (grunt) {
 
 	grunt.verbose.writeln('\n' + sass.info + '\n');
 	grunt.registerMultiTask('sass', 'Compile Sass to CSS', function () {
-		options = this.options({
+		var options = this.options({
 			precision: 10
 		});
 		Promise.all(this.files.map(function (f) {
