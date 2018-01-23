@@ -42,9 +42,11 @@ module.exports = function (grunt) {
 
 	grunt.verbose.writeln('\n' + sass.info + '\n');
 	grunt.registerMultiTask('sass', 'Compile Sass to CSS', function () {
+		var done = this.async();
 		var options = this.options({
 			precision: 10
 		});
+		var count = 0;
 		Promise.all(this.files.map(function (f) {
 			if (!f.dest) {
 				grunt.log.warn('No destination file specified');
@@ -68,10 +70,16 @@ module.exports = function (grunt) {
 				return sassWrite(f.dest, Object.assign({}, options, {
 					file: srcpath,
 					outFile: f.dest
-				}));
+				})).then(function () {
+					count += 1;
+				});
 			}));
-		})).catch(function (err) {
-			grunt.log.error(err.formatted + '\n');
+		})).then(function () {
+			grunt.log.ok(count + ' ' + grunt.util.pluralize(count, 'stylesheet/stylesheets') + ' created.');
+			done();
+		}).catch(function (err) {
+			grunt.log.error(err + '\n');
+			done(err);
 		});
 	});
 };
